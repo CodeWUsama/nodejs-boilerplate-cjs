@@ -1,14 +1,14 @@
 const RESPONSE_CODES = require('../constants/responseCodes');
+const DEFAULT_ERROR_MESSAGE = require('../constants/defaults');
 
-const sendResponse = (res, data, error, responseCode) => {
+const sendResponse = (res, data, message, error, responseCode) => {
   if (error) {
-    res.send({
+    res.status(responseCode || RESPONSE_CODES.internalServerError).json({
       payload: {},
-      message: error,
-      response_code: responseCode || RESPONSE_CODES.serverError,
+      message: message || DEFAULT_ERROR_MESSAGE,
     });
   } else {
-    res.send({ payload: data || {}, response_code: RESPONSE_CODES.ok });
+    res.send({ payload: data || {}, message });
   }
 };
 

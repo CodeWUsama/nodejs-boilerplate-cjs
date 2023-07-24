@@ -1,13 +1,13 @@
 const sendResponse = require('./responseHelper');
 
-const tryCatchWrapper = (executable) => async (req, res, next) => {
+const exceptionHelper = (executable) => async (req, res, next) => {
   try {
     const result = await executable(req, res, next);
     return result;
   } catch (error) {
     console.log(error);
-    sendResponse(res, {}, error.message);
+    sendResponse(res, {}, error.message, true);
   }
 };
 
-module.exports = tryCatchWrapper;
+module.exports = exceptionHelper;

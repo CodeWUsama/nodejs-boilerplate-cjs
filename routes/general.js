@@ -1,9 +1,10 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-const getResponseCodes = require('../controllers/general.js');
-const tryCatchWrapper = require('../helpers/tryCatchHelper.js');
+const router = express.Router();
 
-router.get('/response_codes', tryCatchWrapper(getResponseCodes));
+const getResponseCodes = require('../controllers/general');
+const exceptionHelper = require('../helpers/exceptionHelper');
+
+router.get('/response_codes', exceptionHelper(getResponseCodes));
 
 module.exports = router;
